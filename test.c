@@ -1,24 +1,50 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-// TODO: array of student names with dynamic memory allocation as much as possible.
-// TODO: sorting of arrays in decreasing order
 
-// eftiaksa 2 functions: vathmous(scoreCalc), taksinomhsh(sorting)
-int scoreCalc(){
+// TODO: FIX OUTPUT DIPLAY OF RESULT
+// do the sorting in both arrays
+
+char *getName(){
+  char name[50];
+  if (fgets(name, sizeof(name), stdin) != NULL){
+    size_t len = strlen(name);
+    if (name[len-1] == "\n"){
+      name[len-1] = "\0";
+    }
+    char *line = malloc(len + 1);
+    if (line != NULL) {
+      strcpy(line, name);
+    }
+    return line;
+
+  }
+
+  return NULL;
+
+}
+
+int scoreCalc() {
     int j;
     int total = 0;
     int score = 0;
-    for(j=0; j < 3; j++){
-    
-      printf("judge score: \n");
-      scanf("%d", &score);
-      total += score;
-    
-  }
-  return total;
-}
+    char input[10];
 
+    for (j = 0; j < 3; j++) {
+        printf("Judge score: ");
+        if (fgets(input, sizeof(input), stdin) != NULL) {
+            if (sscanf(input, "%d", &score) == 1) {
+                total += score;
+            } 
+            else {
+                printf("Invalid input. Please enter an integer.\n");
+                j--; // Repeat this iteration
+            }
+        }
+    }
+    return total;
+}
 
 
 int sorting(int array[4], int N){
@@ -27,7 +53,7 @@ int sorting(int array[4], int N){
   int temp = 0;
 
   for(i=0; i < N; i++){
-    for(j= i+1; j < N; j++){
+    for(j=i+1; j < N; j++){
 
       if (array[i] < array[j]){
         temp = array[i];
@@ -45,33 +71,46 @@ int sorting(int array[4], int N){
   return 0;
 }
 
-// sthn main evala ola ta upoloipa
-// tis zitoumenes listes tis evala me mikra gia pio grigora :)
 int main(){
     int students = 5;
+    size_t count = 0;
+    size_t capacity = 5;
+
+    int *vathmos = NULL;
+    char **name = NULL;
+
+    vathmos = malloc(capacity * sizeof(int));
+    name = malloc(capacity * sizeof(char *));
+
+    if (name == NULL || vathmos == NULL){
+      fprintf (stderr, "List memory allocation error.");
+      return 1;
+    }
+
+    
     int i;
-    int size = 0;
-    int vathmos[5];
-    char name[50];
-    char nameList[5][50];
     for(i = 0; i < students; i++){
-      
-      printf("Student name: ");
-      scanf("%s", &name);
-      printf("Name: %s\n", name);
-      int strSize = strlen(name);
-      vathmos[size] = scoreCalc();
-      nameList[size] = name;
-      size++;
-      // prospathisa me tin metavlith size h opoia auksanetai na ftiaksw
-      //kati san thn append function tis python
-      // an exete na mou proteinetai kapio kalutero tropo tha to ektimousa polu
+      // Eisagwgh onomatos
+      printf("Student name:  \n");
+      char *input = getName();
+      name[count] = input;
+
+
+      // vathmologies kritwn apo funtion
+      vathmos[count] = scoreCalc();
+      count ++;
+  
+
     }
-    int j;
-    for(j=0; j <= 4; j++){
-    printf("%d,", vathmos[j]);
-    printf("%s,", nameList[j]);
+    
+    for(size_t i=0; i <= count; i++){
+      printf("%s", name[i]);
+      printf("%d,", vathmos[i]);
+      free(name[i]);
+
     }
+     free(name);
+     free(vathmos);
 
   return 0;
 }
