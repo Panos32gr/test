@@ -6,24 +6,22 @@
 // TODO: FIX OUTPUT DIPLAY OF RESULT
 // do the sorting in both arrays
 
-char *getName(){
+char* getName(){
   char name[50];
   if (fgets(name, sizeof(name), stdin) != NULL){
     size_t len = strlen(name);
-    if (name[len-1] == "\n"){
-      name[len-1] = "\0";
+    if (len > 0 && name[len-1] == '\n'){  
+      name[len-1] = '\0';
     }
     char *line = malloc(len + 1);
     if (line != NULL) {
       strcpy(line, name);
     }
     return line;
-
   }
-
   return NULL;
-
 }
+
 
 int scoreCalc() {
     int j;
@@ -39,7 +37,7 @@ int scoreCalc() {
             } 
             else {
                 printf("Invalid input. Please enter an integer.\n");
-                j--; // Repeat this iteration
+                j--;
             }
         }
     }
@@ -47,7 +45,7 @@ int scoreCalc() {
 }
 
 
-int sorting(int array[4], int N){
+int sorting(int array[5], int N){
   int i = 0;
   int j = 0;
   int temp = 0;
@@ -94,6 +92,7 @@ int main(){
       printf("Student name:  \n");
       char *input = getName();
       name[count] = input;
+    
 
 
       // vathmologies kritwn apo funtion
@@ -103,10 +102,13 @@ int main(){
 
     }
     
-    for(size_t i=0; i <= count; i++){
-      printf("%s", name[i]);
+
+
+    sorting(vathmos,5);
+
+    for(size_t i=0; i < count; i++){
+      printf("%s=", name[i]);
       printf("%d,", vathmos[i]);
-      free(name[i]);
 
     }
      free(name);
