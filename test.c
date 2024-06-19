@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 
-// TODO: FIX OUTPUT DIPLAY OF RESULT
-// do the sorting in both arrays
 
+
+// function eisagwghs onomatos
 char* getName(){
   char name[50];
   if (fgets(name, sizeof(name), stdin) != NULL){
@@ -22,7 +22,7 @@ char* getName(){
   return NULL;
 }
 
-
+// function eisagwghs kai upologismou vathmologiwn
 int scoreCalc() {
     int j;
     int total = 0;
@@ -45,11 +45,11 @@ int scoreCalc() {
 }
 
 
-int sorting(int array[5], int N){
+void sorting(int array[5], int N, char *list[]){
   int i = 0;
   int j = 0;
   int temp = 0;
-
+  char* temp2;
   for(i=0; i < N; i++){
     for(j=i+1; j < N; j++){
 
@@ -58,15 +58,20 @@ int sorting(int array[5], int N){
         array[i] = array[j];
         array[j] = temp;
 
+        temp2 = list[i];
+        list[i]= list[j];
+        list[j] = temp2;
+
+
+
       }
     }
   }
   int k=0;
   for (k=0; k < N; k++){
     printf("%d,", array[k]);
-
+    printf("%s \n", list[k]);
   } 
-  return 0;
 }
 
 int main(){
@@ -103,11 +108,16 @@ int main(){
     }
     
 
+    // taksinomhsh listwn
+    // douleiei alla o tropos pou to egrapsa den m fainetai swstos
+    // mporw mipws me kalutero tropo?
+    sorting(vathmos,5, name);
+    
 
-    sorting(vathmos,5);
-
-    for(size_t i=0; i < count; i++){
-      printf("%s=", name[i]);
+    // emfanish prokrithentwn
+    printf("Advancing students: \n");
+    for(size_t i=0; i < 3; i++){
+      printf("%s with grade: ", name[i]);
       printf("%d,", vathmos[i]);
 
     }
