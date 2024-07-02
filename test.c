@@ -108,9 +108,6 @@ int main(){
     }
     
 
-    // taksinomhsh listwn
-    // douleiei alla o tropos pou to egrapsa den m fainetai swstos
-    // mporw mipws me kalutero tropo?
     sorting(vathmos,5, name);
     
 
